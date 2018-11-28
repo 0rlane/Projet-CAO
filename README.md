@@ -3,7 +3,7 @@
 
 
 Quest 1: 
-	ok;
+	ok
 	J'ai créée un fichier points.pts qui est le même que ps.pts sauf que les points sont rangés par ordre croissant. C'est pour faciliter son utilisation dans la suite.
 
 
