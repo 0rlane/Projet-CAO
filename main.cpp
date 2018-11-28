@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double **CreateMat(int nrow, int ncol){
+double **CreateMatd(int nrow, int ncol){
   // Creation d'une matrice nrow*ncol
     double **mat;
     mat = new double *[nrow];
@@ -14,8 +14,19 @@ double **CreateMat(int nrow, int ncol){
   return mat;
 }
 
-void AfficheMat(int nrow, int ncol, double **A){
-  // Affichage d'une matrice A nrow*ncol
+int **CreateMati(int nrow, int ncol){
+  // Creation d'une matrice nrow*ncol
+    int **mat;
+    mat = new int *[nrow];
+    for (int i=0; i<nrow ; i++){
+        mat[i] = new int[ncol];
+    }
+
+  return mat;
+}
+
+template<typename Type> Type AfficheMat(int nrow, int ncol, Type **A){
+  // Affichage d'une matrice nrow*ncol
 
   for (int i=0; i<nrow; i++){
     for(int j=0; j<ncol;j++){
@@ -56,7 +67,7 @@ int lectNbTriangles(){
     return nbtri;
 }
 
-void lectTriangles(int nbtri, double **triangles){
+void lectTriangles(int nbtri, int **triangles){
     //Lecture du fichier listri.dat et recuperation des sommets des triangles
 
     ifstream ftriangles("listri.dat");
@@ -76,16 +87,18 @@ int main(){
     int N;  //nombre de points
     double **points; // matrice contenant les N points et leurs coordonnees x et y
     N=lectN();
-    points=CreateMat(N,3);
+    points=CreateMatd(N,3);
     lectPoints(N,points);
 
     //Lecture du fichier listri.dat
     int nbtri;  //nombre de triangles dans le domaine D
-    double **NT;   // matrice contenant les nbtri triangles et leurs 3 sommets
+    int **NT;   // matrice contenant les nbtri triangles et leurs 3 sommets
     nbtri=lectNbTriangles();
-    NT=CreateMat(3,nbtri);
+    NT=CreateMati(3,nbtri);
     lectTriangles(nbtri, NT);
+
 
 
     return 0;
 }
+
