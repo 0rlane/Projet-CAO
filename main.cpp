@@ -15,7 +15,7 @@ double **CreateMat(int nrow, int ncol){
 }
 
 void AfficheMat(int nrow, int ncol, double **A){
-  // Affichage d'une matrice nrow*ncol
+  // Affichage d'une matrice A nrow*ncol
 
   for (int i=0; i<nrow; i++){
     for(int j=0; j<ncol;j++){
