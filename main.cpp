@@ -26,18 +26,18 @@ void AfficheMat(int nrow, int ncol, double **A){
 }
 
 int lectN(){
-    // Lecture du fichier ps.pts et recuperation de la donnee N
+    // Lecture du fichier points.pts et recuperation de la donnee N
 
     int N;
-    ifstream fpoints("ps.pts");
+    ifstream fpoints("points.pts");
     fpoints>>N;
     return N;
 }
 
 void lectPoints(int N, double **points){
-    // Lecture du fichier ps.pts et recuperation des coordonnees des points
+    // Lecture du fichier points.pts et recuperation des coordonnees des points
 
-    ifstream fpoints("ps.pts");
+    ifstream fpoints("points.pts");
     string tmp;
     getline(fpoints,tmp);
     for (int i=0; i<N; i++){
