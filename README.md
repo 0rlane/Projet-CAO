@@ -21,3 +21,5 @@ Quest 4:
 
 
 Quest 5:
+	ok.
+	J'ai mis la  creation de la matrice G en commentaire pour l'instant car on fera les premiers test pour F
