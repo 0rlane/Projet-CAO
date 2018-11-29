@@ -40,5 +40,6 @@ int main(){
     initF(N,points,G);*/
 
 
+    FreeMat(NT,nbtri); FreeMat(points,N); FreeMat(NTV,nbtri); FreeMat(F,N); // FreeMAt(G);
     return 0;
 }
