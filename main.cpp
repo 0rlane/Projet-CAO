@@ -80,6 +80,31 @@ void lectTriangles(int nbtri, int **triangles){
     }
 }
 
+int trianglevoisin(int nbtri, int S1, int S2, int k, int **NT){
+    // Recherche du traingle voisin du triangle K pour les sommets S1 et S2
+    int voisin(-1);
+    int i(0);
+    while (i<nbtri && voisin==-1){
+        if (i!=k){
+            if ((NT[0][i]==S1 || NT[1][i]==S1 || NT[2][i]==S1) && (NT[0][i]==S2 || NT[1][i]==S2 || NT[2][i]==S2)){
+                // Le triangle i est voisin du triangle k
+                voisin=i;
+            }
+        }
+    i++;
+    }
+    return voisin;
+}
+
+void initNTV(int nbtri, int **NTV, int **NT){
+    // Initialisation de la matrice NTV
+    for(int k=0; k<nbtri; k++){
+        NTV[0][k]=trianglevoisin(nbtri,NT[0][k],NT[1][k],k,NT);
+        NTV[1][k]=trianglevoisin(nbtri,NT[0][k],NT[2][k],k,NT);
+        NTV[2][k]=trianglevoisin(nbtri,NT[2][k],NT[1][k],k,NT);
+    }
+}
+
 
 
 int main(){
@@ -97,8 +122,14 @@ int main(){
     NT=CreateMati(3,nbtri);
     lectTriangles(nbtri, NT);
 
+    //Creation de la matrice NTV
+    int **NTV;  //matrice contenant les 3 triangles voisins de chaque triangle
+    NTV=CreateMati(3,nbtri);
+    initNTV(nbtri,NTV,NT);
+
 
 
     return 0;
 }
+
 
