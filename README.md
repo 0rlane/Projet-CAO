@@ -16,8 +16,9 @@ Quest 3:
 
 
 Quest 4: 
-	ok.
-	J'ai mis -1 lorsqu'il n'y avais pas de triangle à coté au lieux de 0 (car mon indexation des triangles commence à 0)
+	Création de la matrice NTV.
+	J'ai mis -1 lorsqu'il n'y avais pas de triangle à coté au lieux de 0 (car mon indexation des triangles commence à 0).
+	Il reste à trouver les points Mi
 
 
 Quest 5:
