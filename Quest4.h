@@ -1,4 +1,4 @@
-#ifndef QUEST2=4_H
+#ifndef QUEST4_H
 #define QUEST4_H
 
 #include <fstream>
