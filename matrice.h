@@ -20,4 +20,14 @@ template<typename Type> Type AfficheMat(int nrow, int ncol, Type **A){
   }
 }
 
+template<typename Type> Type FreeMat(Type **A, int nrow){
+    // Desalocaation memoire de la matrice A
+
+    for (int i=0; i<nrow; i++) {
+            delete [] (A[i]);
+    }
+    delete [] A;
+}
+
 #endif // MATRICE_H
+
