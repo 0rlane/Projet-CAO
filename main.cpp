@@ -73,8 +73,8 @@ void lectTriangles(int nbtri, int **triangles){
     ifstream ftriangles("listri.dat");
     string tmp;
     getline(ftriangles,tmp);
-    for (int j=0; j<nbtri; j++){
-        for (int i=0; i<3; i++){
+    for (int i=0; i<nbtri; i++){
+        for (int j=0; j<3; j++){
             ftriangles>>triangles[i][j];
         }
     }
@@ -86,7 +86,7 @@ int trianglevoisin(int nbtri, int S1, int S2, int k, int **NT){
     int i(0);
     while (i<nbtri && voisin==-1){
         if (i!=k){
-            if ((NT[0][i]==S1 || NT[1][i]==S1 || NT[2][i]==S1) && (NT[0][i]==S2 || NT[1][i]==S2 || NT[2][i]==S2)){
+            if ((NT[i][0]==S1 || NT[i][1]==S1 || NT[i][2]==S1) && (NT[i][0]==S2 || NT[i][1]==S2 || NT[i][2]==S2)){
                 // Le triangle i est voisin du triangle k
                 voisin=i;
             }
@@ -99,9 +99,9 @@ int trianglevoisin(int nbtri, int S1, int S2, int k, int **NT){
 void initNTV(int nbtri, int **NTV, int **NT){
     // Initialisation de la matrice NTV
     for(int k=0; k<nbtri; k++){
-        NTV[0][k]=trianglevoisin(nbtri,NT[0][k],NT[1][k],k,NT);
-        NTV[1][k]=trianglevoisin(nbtri,NT[0][k],NT[2][k],k,NT);
-        NTV[2][k]=trianglevoisin(nbtri,NT[2][k],NT[1][k],k,NT);
+        NTV[k][0]=trianglevoisin(nbtri,NT[k][0],NT[k][1],k,NT);
+        NTV[k][1]=trianglevoisin(nbtri,NT[k][0],NT[k][2],k,NT);
+        NTV[k][2]=trianglevoisin(nbtri,NT[k][2],NT[k][1],k,NT);
     }
 }
 
@@ -119,12 +119,12 @@ int main(){
     int nbtri;  //nombre de triangles dans le domaine D
     int **NT;   // matrice contenant les nbtri triangles et leurs 3 sommets
     nbtri=lectNbTriangles();
-    NT=CreateMati(3,nbtri);
-    lectTriangles(nbtri, NT);
+    NT=CreateMati(nbtri,3);
+    lectTriangles(nbtri,NT);
 
     //Creation de la matrice NTV
     int **NTV;  //matrice contenant les 3 triangles voisins de chaque triangle
-    NTV=CreateMati(3,nbtri);
+    NTV=CreateMati(nbtri,3);
     initNTV(nbtri,NTV,NT);
 
 
