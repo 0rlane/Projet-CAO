@@ -22,7 +22,29 @@ int sign(double A1, double B1, double A2, double B2)
     //         | a2 b2 |
     double tmp = (A1*B2 - A2*B1);
     if (tmp==0) {cout << "erreur de signe" << endl;}
-    return ((tmp>0.) - (tmp<0));
+    return ((tmp>0.) - (tmp<0.));
+}
+
+void IntersectionDroites(double &X, double &Y, double a1, double a2, double b1, double b2, double c1, double c2)
+{
+    // calcule les corrdonnées X et Y d'intersection des deux droites de coeff a,b,c
+    if (b1!=0. && b2!=0.)
+    {
+        X = (((c1/b1)-(c2/b2)) / ((a2/b2)-(a1/b1)));
+        Y = (-a1/b1)*X-c1/b1
+    }
+    else if (b1==0.) // droite 1 est verticale
+    {
+        X = a1;
+        Y = (-a2/b2)*X-c2/b2;
+    }
+    else if (b2==0.) // droite 2 est verticale
+    {
+        X = a2;
+        Y = (-a1/b1)*X-c1/b1;
+    }
+    else // b1 et b2 ne sont pas sensé etre nuls tous les deux
+    cout << "erreur dans IntersectionDroites" << endl;
 }
 
 double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, int** TRIANGLES)
@@ -32,9 +54,11 @@ double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, in
     for (int i = 0; i < N_triangles; ++i) { RESULTS[i] = new double[2]; }
 
     // boucle sur chaque triangle
-    for (int i = 0; i < N_triangles; ++i)
-    {
+    //for (int i = 0; i < N_triangles; ++i)
+    //{
         // doit retourner les coefficients a,b,c ou coeff direc et ord origine
+
+        int i =0;
 
         double Xa = POINTS[TRIANGLES[i][0]-1][1];
         double Ya = POINTS[TRIANGLES[i][0]-1][2];
@@ -82,13 +106,15 @@ double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, in
         double bb2 = (sign1/denom1)*b2 + (sign2/denom2)*b3;
         double cb2 = (sign1/denom1)*c2 + (sign2/denom2)*c3;
 
+        cout << "intersection A : " <<  << " " <<  << endl;
+
         // coordonnée du centre de cercle inscrit au triangle i
         RESULTS[i][0] = (((cb2/bb2)-(cb1/bb1)) / ((ab1/cb1)-(ab2/cb2))); // X
-        RESULTS[i][1] = -ab1/cb1*RESULTS[i][0]-cb1/bb1;  // Y
+        RESULTS[i][1] = -ab1/bb1*RESULTS[i][0]-cb1/bb1;  // Y
 
         cout << "valeurs a,b,c des deux bissectrices : " << ab1 << " " << bb1 << " " << cb1 << " " << ab2 << " " << bb2 << " " << cb2 << endl;
         cout << "triangle " << i << " : X=" << RESULTS[i][0] << " Y=" << RESULTS[i][1] << endl;
-    }
+    //}
 
     return RESULTS;
 }
