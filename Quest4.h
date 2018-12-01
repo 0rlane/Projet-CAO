@@ -1,7 +1,7 @@
 #ifndef QUEST4_H
 #define QUEST4_H
 
-#include "Quest3.h"
+#include "quest3.h"
 #include <fstream>
 #include <iostream>
 
