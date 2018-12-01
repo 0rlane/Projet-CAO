@@ -12,7 +12,8 @@ Quest 2:
 	lecture des triangles: ok.
 
 
-Quest 3:
+Quest 3: OK
+	 Fonctionne et est vérifiée, à la fin de la fonction ça "cout" l'erreur max sur les angles des bissectrices 
 
 
 Quest 4: 
