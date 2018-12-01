@@ -25,8 +25,6 @@ int main(){
     nbtri=lectNbTriangles();
     NT=CreateMati(nbtri,3);
     lectTriangles(nbtri,NT);
-    cout<<"NT:"<<endl;
-
 
     //Creation de la matrice NTV
     int **NTV;  //matrice contenant les 3 triangles voisins de chaque triangle (nbtri*3)
