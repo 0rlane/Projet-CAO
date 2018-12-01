@@ -47,11 +47,49 @@ void IntersectionDroites(double &X, double &Y, double a1, double a2, double b1, 
     cout << "erreur dans IntersectionDroites" << endl;
 }
 
+// distance entre deux points A et B
+double DistEucl(double Xa, double Ya, double Xb, double Yb)
+{
+    return ( sqrt( (Xa-Xb)*(Xa-Xb)+(Ya-Yb)*(Ya-Yb) ) );
+}
+
+// calcule la différence entre les angles de chaque coté de la bissectrice de sortant de B
+double ErreurBissectrice(double Xa, double Ya, double Xb, double Yb, double Xc, double Yc, double Xom, double Yom)
+{
+    double a1 = DistEucl(Xb,Yb,Xom,Yom);
+    double a2 = DistEucl(Xa,Ya,Xc,Yc); 
+
+    double b1 = DistEucl(Xa,Ya,Xb,Yb);
+    double c1 = DistEucl(Xa,Ya,Xom,Yom);
+
+    double b2 = DistEucl(Xc,Yc,Xb,Yb);
+    double c2 = DistEucl(Xc,Yc,Xom,Yom);
+
+    //calcul angle A_B_Omega
+    double angle1 = fabs( acos((-c1*c1+a1*a1+b1*b1)/(2*a1*b1)) );
+    //calcul angle C_B_Omega
+    double angle2 = fabs( acos((-c2*c2+a1*a1+b2*b2)/(2*a1*b2)) );
+    //erreur sur la 1ere bissectrice
+    double error = fabs(angle1-angle2);
+
+    //calcul angle B_C_Omega
+    angle1 = fabs( acos((-a1*a1+b2*b2+c2*c2)/(2*b2*c2)) );
+    //calcul angle A_C_Omega
+    angle2 = fabs( acos((-c1*c1+a2*a2+c2*c2)/(2*a2*c2)) );
+    
+    //erreur sur la 2ere bissectrice
+    error = max(error,fabs(angle1-angle2));
+
+    return (error);
+}
+
 double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, int** TRIANGLES)
 {
     // Initialisation
     double** RESULTS = new double*[N_triangles];
     for (int i = 0; i < N_triangles; ++i) { RESULTS[i] = new double[2]; }
+
+    double ERREUR_MAX = 0.;
 
     // boucle sur chaque triangle
     for (int i = 0; i < N_triangles; ++i)
@@ -75,12 +113,6 @@ double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, in
         CalculCoeff(a2,b2,c2,Xa,Ya,Xc,Yc); // droite AC
         CalculCoeff(a3,b3,c3,Xb,Yb,Xc,Yc); // droite BC
 
-        /*
-        cout << "a1 b1 c1 : " << a1 << " " << b1 << " " << c1 << endl;
-        cout << "a2 b2 c2 : " << a2 << " " << b2 << " " << c2 << endl;
-        cout << "a3 b3 c3 : " << a3 << " " << b3 << " " << c3 << endl;
-        */
-
         // pour la bissectrice sortant de A
         double T1 = sign(a3, b3, a1, b1) / sqrt(a1*a1+b1*b1);
         double T2 = sign(a3, b3, a2, b2) / sqrt(a2*a2+b2*b2);
@@ -97,13 +129,11 @@ double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, in
 
         IntersectionDroites(RESULTS[i][0], RESULTS[i][1], ab1, ab2, bb1, bb2, cb1, cb2);
 
-        /*
-        cout << "valeurs a,b,c des deux bissectrices : " << endl;
-        cout << ab1 << " " << bb1 << " " << cb1 << endl;
-        cout << ab2 << " " << bb2 << " " << cb2 << endl;
-        */
-        cout << "triangle " << i << " : X=" << RESULTS[i][0] << " Y=" << RESULTS[i][1] << endl;
+        ERREUR_MAX = max(ERREUR_MAX,ErreurBissectrice(Xa, Ya, Xb, Yb, Xc, Yc, RESULTS[i][0], RESULTS[i][1]));
+        
     }
+
+    cout << "Erreur max d'angle des bissectrices : " << ERREUR_MAX << endl;
 
     return RESULTS;
 }
