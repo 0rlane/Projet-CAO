@@ -18,7 +18,7 @@ Quest 3:
 Quest 4: 
 	Création de la matrice NTV : ok.
 	J'ai mis -1 lorsqu'il n'y avais pas de triangle à coté au lieux de 0 (car mon indexation des triangles commence à 0).
-	Creation des points Mi: A faire.
+	Creation des points Mi: ok.
 
 
 Quest 5:
