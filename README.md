@@ -13,6 +13,8 @@ Quest 2:
 
 
 Quest 3:
+	ok. fonctionne et est testée
+	a la fin de la fonction ça disp l'erreur maximale sur les angles des bissectrices
 
 
 Quest 4: 
