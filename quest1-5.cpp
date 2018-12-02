@@ -1,0 +1,21 @@
+
+
+#include <fstream>
+#include <iostream>
+
+#include "quest1-5.h"
+
+using namespace std;
+
+///////////////////////////////////////////////// QUESTION 1 /////////////////////////////////////////////////
+
+int lectN(const char* name)
+{
+    // Lecture du fichier name et recup de la 1ere donnée N
+    int N;
+    ifstream fichier(name);
+    fichier>>N;
+    return N;
+}
+
+///////////////////////////////////////////////// QUESTION 1 /////////////////////////////////////////////////
