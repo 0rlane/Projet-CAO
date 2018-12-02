@@ -137,3 +137,14 @@ double** CentreCercleInscrits(int N_points, int N_triangles, double** POINTS, in
 
     return RESULTS;
 }
+
+void createFichierOmega(double **Omega,int nbtri){
+    ofstream fomega("Omega.pts");
+    for (int i=0; i<nbtri; i++){
+        for(int j=0; j<2;j++){
+            fomega<<Omega[i][j]<<" ";
+        }
+        fomega<<endl;;
+    }
+    fomega.close();
+}
